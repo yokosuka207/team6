@@ -19,7 +19,7 @@ public class TitleScene : MonoBehaviour
         if (Input.anyKeyDown) //ユーザーがなんらかのキーかマウスボタンを押した最初のフレームのみ true を返します（読み取り専用）
         {
             //Debug.Log("A key or mouse click has been detected");
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("SampleScene");
         }
     }
 }

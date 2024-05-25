@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,9 +24,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float nowTime = Time.time - startTime - addTime;
-        timerTex.text = "Time:" + (limitTime - nowTime).ToString("F2");
+        float nowTime = limitTime - (Time.time - startTime) + addTime;
+
+        if (nowTime <= 0.0f)
+        {
+            nowTime = 0.0f;
+            SceneManager.LoadScene("ResultScene");
+        }
+
+        timerTex.text = "Time:" + (nowTime).ToString("F2");
         scoreTex.text = "Score:" + score.ToString();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AddTime(-10);
+            AddScore(1);
+        }
     }
 
 
