@@ -83,8 +83,18 @@ public class InfiniteMapGenerator : MonoBehaviour
                     continue;
                 }
 
-                // 通路の位置の場合は必ず土タイルを配置
-                TileBase tile = passageXs.Contains(x) ? dirtTile : GetRandomTile(ref stoneCount, ref consecutiveStoneCount, tilePosition, passageXs.Contains(x));
+                TileBase tile;
+
+                // 初期チャンクかつx=0の列の場合、すべて土タイルにする
+                if (isInitial && chunkPosition.x == 0)
+                {
+                    tile = dirtTile;
+                }
+                else
+                {
+                    // 通路の位置の場合は必ず土タイルを配置
+                    tile = passageXs.Contains(x) ? dirtTile : GetRandomTile(ref stoneCount, ref consecutiveStoneCount, tilePosition, passageXs.Contains(x));
+                }
 
                 // 適切なTilemapにタイルを配置
                 SetTile(tilePosition, tile);

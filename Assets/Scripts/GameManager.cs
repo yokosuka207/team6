@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
 
     // ÉXÉRÉAÇÃâ¡éZ
-    public void AddScore(int value)
+    static public void AddScore(int value)
     {
         score += value;
     }
