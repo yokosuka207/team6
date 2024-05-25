@@ -20,6 +20,11 @@ public class InfiniteMapGenerator : MonoBehaviour
     private int mapHeight = 3;
     private HashSet<Vector2Int> generatedChunks = new HashSet<Vector2Int>();
 
+    void Start()
+    {
+        GenerateInitialChunks();
+    }
+
     void Update()
     {
         if (player.position.x >= startScript_X)
@@ -37,8 +42,30 @@ public class InfiniteMapGenerator : MonoBehaviour
         }
     }
 
-    void GenerateChunk(Vector2Int chunkPosition)
+    void GenerateInitialChunks()
     {
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                Vector2Int chunkPosition = new Vector2Int(x, y);
+                GenerateChunk(chunkPosition, true);
+                generatedChunks.Add(chunkPosition);
+            }
+        }
+    }
+
+    void GenerateChunk(Vector2Int chunkPosition, bool isInitial = false)
+    {
+        int passageCount = 2; // 通路の数
+        HashSet<int> passageXs = new HashSet<int>();
+
+        // 通路の位置をランダムに決定
+        while (passageXs.Count < passageCount)
+        {
+            passageXs.Add(Random.Range(0, chunkSize));
+        }
+
         for (int x = 0; x < chunkSize; x++)
         {
             int stoneCount = 0; // 各列の石の数を追跡
@@ -58,14 +85,26 @@ public class InfiniteMapGenerator : MonoBehaviour
                     continue;
                 }
 
-                TileBase tile = GetRandomTile(ref stoneCount, ref consecutiveStoneCount, tilePosition);
+                // 通路の位置の場合は必ず土タイルを配置
+                TileBase tile = passageXs.Contains(x) ? dirtTile : GetRandomTile(ref stoneCount, ref consecutiveStoneCount, tilePosition, passageXs.Contains(x));
                 tilemap.SetTile(tilePosition, tile);
+
+                // 岩ブロックの両隣を土または宝石に設定
+                if (tile == stoneTile)
+                {
+                    SetAdjacentTilesToNonStone(tilePosition);
+                }
             }
         }
     }
 
-    TileBase GetRandomTile(ref int stoneCount, ref int consecutiveStoneCount, Vector3Int tilePosition)
+    TileBase GetRandomTile(ref int stoneCount, ref int consecutiveStoneCount, Vector3Int tilePosition, bool isPassage)
     {
+        if (isPassage) // 通路の場合は土タイルを返す
+        {
+            return dirtTile;
+        }
+
         int totalProbability = dirtTileProbability + stoneTileProbability + gemTileProbability;
         int randomValue = Random.Range(0, totalProbability);
 
@@ -91,6 +130,24 @@ public class InfiniteMapGenerator : MonoBehaviour
         {
             consecutiveStoneCount = 0; // リセット連続石カウント
             return gemTile;
+        }
+    }
+
+    void SetAdjacentTilesToNonStone(Vector3Int tilePosition)
+    {
+        Vector3Int[] adjacentPositions = new Vector3Int[]
+        {
+            new Vector3Int(tilePosition.x - 1, tilePosition.y, 0),
+            new Vector3Int(tilePosition.x + 1, tilePosition.y, 0)
+        };
+
+        foreach (var pos in adjacentPositions)
+        {
+            if (!tilemap.HasTile(pos) || tilemap.GetTile(pos) == stoneTile)
+            {
+                // 土または宝石をランダムに配置
+                tilemap.SetTile(pos, Random.Range(0, 2) == 0 ? dirtTile : gemTile);
+            }
         }
     }
 

@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                if (transform.position.y >= 3)
+                if (transform.position.y >= 3.1)
                     input = Vector2.down;
             }
    
