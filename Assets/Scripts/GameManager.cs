@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("ResultScene");
         }
 
-        timerTex.text = "Time:" + (nowTime).ToString("F2");
+        timerTex.text = (nowTime).ToString("F2");
         scoreTex.text = "Score:" + score.ToString();
 
         if (Input.GetKeyDown(KeyCode.Space))
