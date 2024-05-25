@@ -169,7 +169,7 @@ public class InfiniteMapGenerator : MonoBehaviour
             if (tilemap.GetTile(pos) == stoneTile)
             {
                 stoneCount++;
-                if (stoneCount >= 2)
+                if (stoneCount >= 1)
                 {
                     return true;
                 }
