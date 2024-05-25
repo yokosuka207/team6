@@ -105,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
             dirtTilemap.SetTile(gridPosition, null);
             //‰¹(sound1)‚ð–Â‚ç‚·
             audioSource.PlayOneShot(sound_dirt);
+            m_Animator.SetBool("Pien", false);
         }
         else if (gemTilemap.HasTile(gridPosition))
         {
@@ -114,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
             gemTilemap.SetTile(gridPosition, null);
             //‰¹(sound1)‚ð–Â‚ç‚·
             audioSource.PlayOneShot(sound_gem);
+            m_Animator.SetBool("Pien", false);
         }
         else
         {
