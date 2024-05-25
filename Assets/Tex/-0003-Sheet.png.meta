@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1a7e45c4a1831a044a8468484b8f45bf
+guid: 46b5ca3d20b1e834c87538e48b6e0100
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jwely_0
+      name: -0003-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9412576e6e2f46547b5f7ac75efb919e
-      internalID: -1135723675
+      spriteID: 9616d57037637ca418b2bb1d3e9cbd63
+      internalID: -1636822464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jwely_1
+      name: -0003-Sheet_1
       rect:
         serializedVersion: 2
         x: 16
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23d06121bc9379c4ebc7665b0cf0decd
-      internalID: -1939399017
+      spriteID: dfddc53f171790a489f26be232b740d3
+      internalID: 877500275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jwely_2
+      name: -0003-Sheet_2
       rect:
         serializedVersion: 2
         x: 32
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92965ecaf21966947b6084ff39e2084a
-      internalID: -487734766
+      spriteID: 93d27d26e8930be42b5af1e00d5d0f13
+      internalID: -1823590807
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jwely_3
+      name: -0003-Sheet_3
       rect:
         serializedVersion: 2
         x: 48
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 960cb1ab5ad34bf42979ac5e18101557
-      internalID: -1208721861
+      spriteID: 01ef2afdcaba8ef4abed169bc7513475
+      internalID: -421194494
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jwely_4
+      name: -0003-Sheet_4
       rect:
         serializedVersion: 2
         x: 64
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e48936a5f06f94d4ba1bb87bb2744449
-      internalID: 1798917661
+      spriteID: bb8597cdd6bfa7c469698fea70acab79
+      internalID: -940408117
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jwely_5
+      name: -0003-Sheet_5
       rect:
         serializedVersion: 2
         x: 80
@@ -224,8 +224,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ad0a19dbf31f804e91ac9d21929d5cf
-      internalID: 168495255
+      spriteID: c27fe2864f931e34eba2424247d5ae3a
+      internalID: -710069270
       vertices: []
       indices: 
       edges: []
@@ -241,12 +241,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      jwely_2: -487734766
-      jwely_4: 1798917661
-      jwely_3: -1208721861
-      jwely_1: -1939399017
-      jwely_5: 168495255
-      jwely_0: -1135723675
+      -0003-Sheet_4: -940408117
+      -0003-Sheet_0: -1636822464
+      -0003-Sheet_3: -421194494
+      -0003-Sheet_5: -710069270
+      -0003-Sheet_2: -1823590807
+      -0003-Sheet_1: 877500275
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

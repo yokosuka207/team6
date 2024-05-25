@@ -17,14 +17,21 @@ public class PlayerMovement : MonoBehaviour
 
     public int increaseScore = 100;
     public float DecreaseTime = 1.0f;
-    public float IncreaseTimePreset = 0.8f;
-    private float IncreaseTime = 0;
+    public float IncreaseTime = 0.8f;
+
+    public AudioClip sound_dirt;
+    public AudioClip sound_gem;
+    public AudioClip sound_stone;
+    public AudioClip sound4;
+
+    AudioSource audioSource;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         targetPosition = rb.position;
-        IncreaseTime = DecreaseTime * IncreaseTimePreset;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -84,18 +91,24 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Player is on Stone Tilemap");
             stoneTilemap.SetTile(gridPosition, null);
             GameManager.AddTime(-DecreaseTime);
+             //‰¹(sound1)‚ð–Â‚ç‚·
+            audioSource.PlayOneShot(sound_stone);
         }
         else if (dirtTilemap.HasTile(gridPosition))
         {
             Debug.Log("Player is on Dirt Tilemap");
             dirtTilemap.SetTile(gridPosition, null);
+            //‰¹(sound1)‚ð–Â‚ç‚·
+            audioSource.PlayOneShot(sound_dirt);
         }
         else if (gemTilemap.HasTile(gridPosition))
         {
             Debug.Log("Player is on Gem Tilemap");
             GameManager.AddScore(increaseScore);
             GameManager.AddTime(IncreaseTime);
-            gemTilemap.SetTile(gridPosition, null); 
+            gemTilemap.SetTile(gridPosition, null);
+            //‰¹(sound1)‚ð–Â‚ç‚·
+            audioSource.PlayOneShot(sound_gem);
         }
         else
         {
