@@ -26,12 +26,14 @@ public class PlayerMovement : MonoBehaviour
 
     AudioSource audioSource;
 
+    private Animator m_Animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         targetPosition = rb.position;
         audioSource = GetComponent<AudioSource>();
+        m_Animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -39,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isMoving)
         {
             Vector2 input = Vector2.zero;
+            m_Animator.SetBool("Walk", false);
 
             // 矢印キーの入力を取得
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -68,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator MoveToPosition(Vector2 target)
     {
         isMoving = true;
+        m_Animator.SetBool("Walk", true);
 
         // 一瞬でターゲット位置に移動
         rb.MovePosition(target);
@@ -93,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
             GameManager.AddTime(-DecreaseTime);
              //音(sound1)を鳴らす
             audioSource.PlayOneShot(sound_stone);
+            m_Animator.SetBool("Pien", true);
         }
         else if (dirtTilemap.HasTile(gridPosition))
         {
