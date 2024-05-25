@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 public class InfiniteMapGenerator : MonoBehaviour
 {
-    public float startScript_X = 20;
+    public Tilemap dirtTilemap; // 土タイル用のTilemap
+    public Tilemap stoneTilemap; // 石タイル用のTilemap
+    public Tilemap gemTilemap; // 宝石タイル用のTilemap
 
-    public Tilemap tilemap;
     public TileBase dirtTile;
     public TileBase stoneTile;
     public TileBase gemTile;
@@ -27,18 +28,15 @@ public class InfiniteMapGenerator : MonoBehaviour
 
     void Update()
     {
-        if (player.position.x >= startScript_X)
-        {
-            Vector2Int playerChunk = new Vector2Int(
-                Mathf.FloorToInt(player.position.x / chunkSize),
-                Mathf.FloorToInt(player.position.y / chunkSize)
-            );
+        Vector2Int playerChunk = new Vector2Int(
+            Mathf.FloorToInt(player.position.x / chunkSize),
+            Mathf.FloorToInt(player.position.y / chunkSize)
+        );
 
-            if (!generatedChunks.Contains(playerChunk))
-            {
-                GenerateChunk(playerChunk);
-                generatedChunks.Add(playerChunk);
-            }
+        if (!generatedChunks.Contains(playerChunk))
+        {
+            GenerateChunk(playerChunk);
+            generatedChunks.Add(playerChunk);
         }
     }
 
@@ -80,14 +78,16 @@ public class InfiniteMapGenerator : MonoBehaviour
                 );
 
                 // 既存のタイルマップを変更しないようにする
-                if (tilemap.HasTile(tilePosition))
+                if (dirtTilemap.HasTile(tilePosition) || stoneTilemap.HasTile(tilePosition) || gemTilemap.HasTile(tilePosition))
                 {
                     continue;
                 }
 
                 // 通路の位置の場合は必ず土タイルを配置
                 TileBase tile = passageXs.Contains(x) ? dirtTile : GetRandomTile(ref stoneCount, ref consecutiveStoneCount, tilePosition, passageXs.Contains(x));
-                tilemap.SetTile(tilePosition, tile);
+
+                // 適切なTilemapにタイルを配置
+                SetTile(tilePosition, tile);
 
                 // 岩ブロックの両隣を土または宝石に設定
                 if (tile == stoneTile)
@@ -133,6 +133,22 @@ public class InfiniteMapGenerator : MonoBehaviour
         }
     }
 
+    void SetTile(Vector3Int position, TileBase tile)
+    {
+        if (tile == dirtTile)
+        {
+            dirtTilemap.SetTile(position, tile);
+        }
+        else if (tile == stoneTile)
+        {
+            stoneTilemap.SetTile(position, tile);
+        }
+        else if (tile == gemTile)
+        {
+            gemTilemap.SetTile(position, tile);
+        }
+    }
+
     void SetAdjacentTilesToNonStone(Vector3Int tilePosition)
     {
         Vector3Int[] adjacentPositions = new Vector3Int[]
@@ -143,10 +159,11 @@ public class InfiniteMapGenerator : MonoBehaviour
 
         foreach (var pos in adjacentPositions)
         {
-            if (!tilemap.HasTile(pos) || tilemap.GetTile(pos) == stoneTile)
+            if (!dirtTilemap.HasTile(pos) && !stoneTilemap.HasTile(pos) && !gemTilemap.HasTile(pos))
             {
                 // 土または宝石をランダムに配置
-                tilemap.SetTile(pos, Random.Range(0, 2) == 0 ? dirtTile : gemTile);
+                TileBase tile = Random.Range(0, 2) == 0 ? dirtTile : gemTile;
+                SetTile(pos, tile);
             }
         }
     }
@@ -166,10 +183,10 @@ public class InfiniteMapGenerator : MonoBehaviour
         int stoneCount = 0;
         foreach (var pos in diagonalPositions)
         {
-            if (tilemap.GetTile(pos) == stoneTile)
+            if (stoneTilemap.GetTile(pos) == stoneTile)
             {
                 stoneCount++;
-                if (stoneCount >= 1)
+                if (stoneCount >= 2)
                 {
                     return true;
                 }
