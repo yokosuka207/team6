@@ -15,10 +15,16 @@ public class PlayerMovement : MonoBehaviour
     public Tilemap stoneTilemap;
     public Tilemap gemTilemap;
 
+    public int increaseScore = 100;
+    public float DecreaseTime = 1.0f;
+    public float IncreaseTimePreset = 0.8f;
+    private float IncreaseTime = 0;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         targetPosition = rb.position;
+        IncreaseTime = DecreaseTime * IncreaseTimePreset;
     }
 
     void Update()
@@ -77,17 +83,19 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Player is on Stone Tilemap");
             stoneTilemap.SetTile(gridPosition, null);
+            GameManager.AddTime(-DecreaseTime);
         }
         else if (dirtTilemap.HasTile(gridPosition))
         {
             Debug.Log("Player is on Dirt Tilemap");
-            dirtTilemap.SetTile(gridPosition, null); // タイルを置き換え
+            dirtTilemap.SetTile(gridPosition, null);
         }
         else if (gemTilemap.HasTile(gridPosition))
         {
             Debug.Log("Player is on Gem Tilemap");
-            GameManager.AddScore(100);
-            gemTilemap.SetTile(gridPosition, null); // タイルを置き換え
+            GameManager.AddScore(increaseScore);
+            GameManager.AddTime(IncreaseTime);
+            gemTilemap.SetTile(gridPosition, null); 
         }
         else
         {

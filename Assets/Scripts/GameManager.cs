@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private float startTime;
     private static int score;
     [SerializeField] private float limitTime;
-    private float addTime;
+    private static  float addTime;
 
     // Start is called before the first frame update
     void Start()
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         return score;
     }
 
-    public void AddTime(float value)
+    public static void AddTime(float value)
     {
         addTime += value;
     }
