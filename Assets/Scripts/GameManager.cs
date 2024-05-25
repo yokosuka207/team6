@@ -9,18 +9,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreTex;
     private float startTime;
     private static int score;
+    [SerializeField] private float limitTime;
+    private float addTime;
 
     // Start is called before the first frame update
     void Start()
     {
         startTime = Time.time;
         score = 0;
+        addTime = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timerTex.text = "Time:" + (Time.time - startTime).ToString("F2");
+        float nowTime = Time.time - startTime - addTime;
+        timerTex.text = "Time:" + (limitTime - nowTime).ToString("F2");
         scoreTex.text = "Score:" + score.ToString();
     }
 
@@ -32,8 +36,13 @@ public class GameManager : MonoBehaviour
     }
 
     // ƒXƒRƒA‚ÌŽæ“¾
-    static public int GetScore()
+    public static int GetScore()
     {
         return score;
+    }
+
+    public void AddTime(float value)
+    {
+        addTime += value;
     }
 }

@@ -308,6 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerTex: {fileID: 1537710489}
   scoreTex: {fileID: 1088711650}
+  limitTime: 60
 --- !u!1 &1088711648
 GameObject:
   m_ObjectHideFlags: 0
