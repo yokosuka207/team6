@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,19 +10,36 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreTex;
     private float startTime;
     private static int score;
+    [SerializeField] private float limitTime;
+    private float addTime;
 
     // Start is called before the first frame update
     void Start()
     {
         startTime = Time.time;
         score = 0;
+        addTime = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timerTex.text = "Time:" + (Time.time - startTime).ToString("F2");
+        float nowTime = limitTime - (Time.time - startTime) + addTime;
+
+        if (nowTime <= 0.0f)
+        {
+            nowTime = 0.0f;
+            SceneManager.LoadScene("ResultScene");
+        }
+
+        timerTex.text = "Time:" + (nowTime).ToString("F2");
         scoreTex.text = "Score:" + score.ToString();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AddTime(-10);
+            AddScore(1);
+        }
     }
 
 
@@ -32,8 +50,13 @@ public class GameManager : MonoBehaviour
     }
 
     // ƒXƒRƒA‚ÌŽæ“¾
-    static public int GetScore()
+    public static int GetScore()
     {
         return score;
+    }
+
+    public void AddTime(float value)
+    {
+        addTime += value;
     }
 }
